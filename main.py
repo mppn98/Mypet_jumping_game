@@ -26,6 +26,13 @@ def main():
     is_bottom = True
     is_go_up = False
 
+    #장애물 설정
+    imgobstacle = pygame.image.load('obstacle.png')
+    obstacle_height = imgobstacle.get_size()[1]
+    obstacle_x = MAX_WIDTH
+    obstacle_y = MAX_HEIGHT - obstacle_height
+
+
 
     while True:
         screen.fill((135, 206, 235))  # 하늘색
@@ -49,9 +56,20 @@ def main():
         # pet top, bottom 체크
         if is_go_up and pet_y <= jump_top:  # end up
             is_go_up = False
+
         if not is_bottom and pet_y >= pet_bottom:
             is_bottom = True
             pet_y = pet_bottom
+
+        # 장애물 이동
+        obstacle_x -= 12.0
+        if obstacle_x <= 0:
+            obstacle_x = MAX_WIDTH
+
+        # 장애물 그리기
+        screen.blit(imgobstacle, (obstacle_x, obstacle_y))
+
+
 
         # 화면 업데이트
         pygame.display.update()
