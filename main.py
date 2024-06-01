@@ -39,6 +39,19 @@ def main():
                 if is_bottom:
                     is_go_up = True
                     is_bottom = False
+        
+        # pet 이동
+        if is_go_up:
+            pet_y -= 10.0
+        elif not is_go_up and not is_bottom:
+            pet_y += 10.0
+
+        # pet top, bottom 체크
+        if is_go_up and pet_y <= jump_top:  # end up
+            is_go_up = False
+        if not is_bottom and pet_y >= pet_bottom:
+            is_bottom = True
+            pet_y = pet_bottom
 
         # 화면 업데이트
         pygame.display.update()
