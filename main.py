@@ -28,7 +28,8 @@ def main():
     is_go_up = False
 
     #장애물 설정
-    imgobstacle = pygame.image.load('tree.png')
+    imgobstacle = pygame.transform.scale(pygame.image.load('tree.png'), (100, 100))  # 크기를 200x200으로 변경
+
     obstacle_height = imgobstacle.get_size()[1]
     obstacle_x = MAX_WIDTH
     obstacle_y = MAX_HEIGHT - obstacle_height
@@ -64,8 +65,8 @@ def main():
             screen.blit(imgpet, (pet_x, pet_y))
 
         # 장애물 이동
-        obstacle_x -= 12.0
-        if obstacle_x <= 0:
+        obstacle_x -= 17.0
+        if obstacle_x <= -200:
             obstacle_x = MAX_WIDTH
 
         # 장애물 그리기
