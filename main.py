@@ -51,9 +51,9 @@ def main():
         
         # pet 이동
         if is_go_up:
-            pet_y -= 10.0
+            pet_y -= 15.0
         elif not is_go_up and not is_bottom:
-            pet_y += 10.0
+            pet_y += 15.0
 
         # pet top, bottom 체크
         if is_go_up and pet_y <= jump_top:  # end up
