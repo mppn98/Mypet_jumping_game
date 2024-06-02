@@ -34,11 +34,15 @@ def main():
 
     #장애물 설정
     imgobstacle = pygame.transform.scale(pygame.image.load('tree.png'), (100, 100))  # 크기를 200x200으로 변경
-
     obstacle_height = imgobstacle.get_size()[1]
     obstacle_x = MAX_WIDTH
     obstacle_y = MAX_HEIGHT - obstacle_height
 
+    # 충돌 횟수
+    collision_count = 0
+
+    # 점수판 글꼴 설정
+    font = pygame.font.Font(None, 74)
 
 
     while True:
@@ -90,11 +94,14 @@ def main():
         pet_rect = pet_images[pet_index].get_rect(topleft=(pet_x, pet_y))
         obstacle_rect = imgobstacle.get_rect(topleft=(obstacle_x, obstacle_y))
 
-        if pet_rect.colliderect(obstacle_rect):
-            print("충돌")
-            # 충돌 시 할 동작 추가예정
-            
         
+        if pet_rect.colliderect(obstacle_rect):
+            collision_count += 1
+            obstacle_x = MAX_WIDTH  # 충돌 시 장애물을 화면 밖으로 재배치
+
+        # 충돌횟수 화면에 표시
+        collision_text = font.render(f"collisions: {collision_count}", True, (0, 0, 0))
+        screen.blit(collision_text, (10, 10))
 
         # 화면 업데이트
         pygame.display.update()
