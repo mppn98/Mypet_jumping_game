@@ -103,6 +103,15 @@ def main():
         collision_text = font.render(f"collisions: {collision_count}", True, (0, 0, 0))
         screen.blit(collision_text, (10, 10))
 
+        if collision_count >= 4:
+            game_over_text = font.render("Game Over", True, (255, 0, 0))
+            screen.blit(game_over_text, (MAX_WIDTH // 2 - 150, MAX_HEIGHT // 2 - 50))
+            pygame.display.update()
+            pygame.time.wait(2000)  # 2초 대기
+            pygame.quit()
+            sys.exit()
+
+
         # 화면 업데이트
         pygame.display.update()
         fps.tick(33) # fps 설정
