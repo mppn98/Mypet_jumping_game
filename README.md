@@ -24,13 +24,37 @@ MyPet 점프 게임에 오신 것을 환영합니다! 이 게임은 여러분의
     ```bash
     pip install pygame
     ```
-
+    
 ### 게임 실행
 1. 프로젝트 디렉토리로 이동합니다.
 2. 메인 게임 스크립트를 실행합니다:
     ```bash
     python main.py
     ```
+
+## Docker를 사용한 실행 방법
+
+### 필요 사항
+- Docker
+- 먼저 Docker가 설치되어 있어야 합니다. 설치되어 있지 않은 경우 [Docker 공식 웹사이트](https://www.docker.com/)에서 다운로드하여 설치하세요.
+### 실행 방법
+1. 이 저장소를 클론합니다:
+    ```bash
+    git clone https://github.com/mppn98/Mypet_jumping_game.git
+    ```
+2. 저장소 디렉토리로 이동합니다:
+    ```bash
+    cd Mypet_jumping_game
+    ```
+3. 필요한 Python 패키지들을 설치하기 위해 Docker 컨테이너를 빌드합니다:
+    ```bash
+    docker build -t mypet_jumping_game .
+    ```
+4. 앱을 실행하기 위해 다음 명령어를 사용합니다:
+    ```bash
+    docker run -it --rm mypet_jumping_game
+    ```
+
 
 ## 데모 영상
 게임이 어떻게 실행되는지 보려면 아래의 데모 영상을 확인하세요.
