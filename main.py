@@ -86,6 +86,14 @@ def main():
         screen.blit(pet_images[pet_index], (pet_x, pet_y))
         
 
+        # 충돌 감지
+        pet_rect = pet_images[pet_index].get_rect(topleft=(pet_x, pet_y))
+        obstacle_rect = imgobstacle.get_rect(topleft=(obstacle_x, obstacle_y))
+
+        if pet_rect.colliderect(obstacle_rect):
+            print("충돌")
+            # 충돌 시 할 동작 추가예정
+            
         
 
         # 화면 업데이트
