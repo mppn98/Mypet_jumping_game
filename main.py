@@ -17,6 +17,11 @@ def main():
     screen = pygame.display.set_mode((MAX_WIDTH, MAX_HEIGHT))
     fps = pygame.time.Clock()
 
+    # 효과음 초기화
+    pygame.mixer.init()
+    jump_sound = pygame.mixer.Sound('jump.wav')
+    collision_sound = pygame.mixer.Sound('collision.wav')
+
     # pet 설정
     pet_images = [pygame.image.load(f'pet{i}.png') for i in range(1, 3)]
     pet_images = [pygame.transform.scale(img, (img.get_width() // 3, img.get_height() // 3)) for img in pet_images]
@@ -65,6 +70,8 @@ def main():
                 if is_bottom:
                     is_go_up = True
                     is_bottom = False
+                    # 점프 효과음 재생
+                    jump_sound.play()
         
         # pet 이동
         if is_go_up:
@@ -114,6 +121,8 @@ def main():
         if pet_rect.colliderect(obstacle_rect):
             collision_count += 1
             obstacle_x = MAX_WIDTH  # 충돌 시 장애물을 화면 밖으로 재배치
+            # 충돌 효과음 재생
+            collision_sound.play()
 
         # 충돌횟수 화면에 표시
         collision_text = font.render(f"collisions: {collision_count}", True, (0, 0, 0))
