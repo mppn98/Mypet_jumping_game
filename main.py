@@ -2,6 +2,7 @@
 # by. mppn98
 import pygame
 import sys
+import random
 
 # step1 : 창 제목 설정, 화면 설정
 
@@ -33,10 +34,14 @@ def main():
     animation_counter = 0
 
     #장애물 설정
-    imgobstacle = pygame.transform.scale(pygame.image.load('tree.png'), (100, 100))  # 크기를 200x200으로 변경
-    obstacle_height = imgobstacle.get_size()[1]
+    obstacle = [pygame.transform.scale(pygame.image.load('tree.png'), (100, 100))]  # 장애물 이미지를 리스트로 정의
+    current_obstacle = random.choice(obstacle)
+    obstacle_height = current_obstacle.get_size()[1]
     obstacle_x = MAX_WIDTH
     obstacle_y = MAX_HEIGHT - obstacle_height
+
+    # 장애물 속도 변수 추가
+    obstacle_speed = 17.0
 
     # 충돌 횟수
     collision_count = 0
@@ -76,14 +81,20 @@ def main():
             pet_y = pet_bottom
 
         # 장애물 이동
-        obstacle_x -= 17.0
+        obstacle_x -= obstacle_speed
         if obstacle_x <= -100:  # 장애물이 화면을 완전히 지나쳤을 때
             if not pet_rect.colliderect(obstacle_rect):  # 펫이 장애물과 충돌하지 않았을 때
                 score += 1  # 점수 증가
+                # 일정 점수마다 속도 증가
+                if score % 5 == 0:
+                    obstacle_speed += 3
             obstacle_x = MAX_WIDTH
+            current_obstacle = random.choice(obstacle)
+            obstacle_height = current_obstacle.get_size()[1]
+            obstacle_y = MAX_HEIGHT - obstacle_height
 
         # 장애물 그리기
-        screen.blit(imgobstacle, (obstacle_x, obstacle_y))
+        screen.blit(current_obstacle, (obstacle_x, obstacle_y))
 
         # 애니메이션 프레임 교체
         animation_counter += 1
@@ -97,7 +108,7 @@ def main():
 
         # 충돌 감지
         pet_rect = pet_images[pet_index].get_rect(topleft=(pet_x, pet_y))
-        obstacle_rect = imgobstacle.get_rect(topleft=(obstacle_x, obstacle_y))
+        obstacle_rect = current_obstacle.get_rect(topleft=(obstacle_x, obstacle_y))
 
         
         if pet_rect.colliderect(obstacle_rect):
