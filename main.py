@@ -17,15 +17,20 @@ def main():
     fps = pygame.time.Clock()
 
     # pet 설정
-    imgpet = pygame.image.load('pet.jpg')
-    imgpet = pygame.transform.scale(imgpet, (imgpet.get_width() // 7, imgpet.get_height() // 7))
-    pet_height = imgpet.get_size()[1]
+    pet_images = [pygame.image.load(f'pet{i}.png') for i in range(1, 3)]
+    pet_images = [pygame.transform.scale(img, (img.get_width() // 3, img.get_height() // 3)) for img in pet_images]
+    pet_height = pet_images[0].get_size()[1]
     pet_bottom = MAX_HEIGHT - pet_height
     pet_x = 50
     pet_y = pet_bottom
     jump_top = 300
     is_bottom = True
     is_go_up = False
+
+    # 애니메이션을 위한 변수
+    pet_index = 0
+    animation_delay = 5
+    animation_counter = 0
 
     #장애물 설정
     imgobstacle = pygame.transform.scale(pygame.image.load('tree.png'), (100, 100))  # 크기를 200x200으로 변경
@@ -62,7 +67,6 @@ def main():
         if not is_bottom and pet_y >= pet_bottom:
             is_bottom = True
             pet_y = pet_bottom
-            screen.blit(imgpet, (pet_x, pet_y))
 
         # 장애물 이동
         obstacle_x -= 17.0
@@ -72,8 +76,17 @@ def main():
         # 장애물 그리기
         screen.blit(imgobstacle, (obstacle_x, obstacle_y))
 
+        # 애니메이션 프레임 교체
+        animation_counter += 1
+        if animation_counter >= animation_delay:
+            pet_index = (pet_index + 1) % len(pet_images)
+            animation_counter = 0
+
         # pet 그리기
-        screen.blit(imgpet, (pet_x, pet_y))
+        screen.blit(pet_images[pet_index], (pet_x, pet_y))
+        
+
+        
 
         # 화면 업데이트
         pygame.display.update()
