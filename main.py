@@ -41,6 +41,9 @@ def main():
     # 충돌 횟수
     collision_count = 0
 
+    # 점수
+    score = 0
+
     # 점수판 글꼴 설정
     font = pygame.font.Font(None, 74)
 
@@ -74,7 +77,9 @@ def main():
 
         # 장애물 이동
         obstacle_x -= 17.0
-        if obstacle_x <= -200:
+        if obstacle_x <= -100:  # 장애물이 화면을 완전히 지나쳤을 때
+            if not pet_rect.colliderect(obstacle_rect):  # 펫이 장애물과 충돌하지 않았을 때
+                score += 1  # 점수 증가
             obstacle_x = MAX_WIDTH
 
         # 장애물 그리기
@@ -102,6 +107,10 @@ def main():
         # 충돌횟수 화면에 표시
         collision_text = font.render(f"collisions: {collision_count}", True, (0, 0, 0))
         screen.blit(collision_text, (10, 10))
+
+        # 점수를 화면에 표시
+        score_text = font.render(f"Score: {score}", True, (0, 0, 0))
+        screen.blit(score_text, (10, 80))
 
         if collision_count >= 4:
             game_over_text = font.render("Game Over", True, (255, 0, 0))
