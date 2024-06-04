@@ -23,6 +23,8 @@ def main():
     pygame.mixer.init()
     jump_sound = pygame.mixer.Sound('sounds/jump.wav')
     collision_sound = pygame.mixer.Sound('sounds/collision.wav')
+    pygame.mixer.music.load('sounds/background_music.mp3')
+    pygame.mixer.music.play(-1)  # 무한 반복 재생
 
     # pet 설정
     pet_images = [pygame.image.load(f'picture/pet{i}.png') for i in range(1, 3)]
