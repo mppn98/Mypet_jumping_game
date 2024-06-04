@@ -4,7 +4,7 @@ import pygame
 import sys
 import random
 import os
-
+import json
 
 # step1 : 창 제목 설정, 화면 설정
 
@@ -20,6 +20,18 @@ difficulty_settings = {
     "hard": {"obstacle_speed": 20, "item_frequency": 1000},
 }
 
+LEADERBOARD_FILE = 'leaderboard.json'
+
+def load_leaderboard():
+    if os.path.exists(LEADERBOARD_FILE):
+        with open(LEADERBOARD_FILE, 'r') as file:
+            return json.load(file)
+    else:
+        return []
+
+def save_leaderboard(leaderboard):
+    with open(LEADERBOARD_FILE, 'w') as file:
+        json.dump(leaderboard, file)
 
 def main():
     # 창 설정, fps 설정
@@ -191,6 +203,11 @@ def main():
             screen.blit(game_over_text, (MAX_WIDTH // 2 - 150, MAX_HEIGHT // 2 - 50))
             pygame.display.update()
             pygame.time.wait(2000)  # 2초 대기
+
+            # 리더보드 업데이트 및 표시
+            update_leaderboard(score)
+            show_leaderboard(screen, fps)
+
             # 게임 재시작 여부를 묻는 메시지 추가
             restart_text = font.render("Press R to Restart", True, (0, 0, 0))
             screen.blit(restart_text, (MAX_WIDTH // 2 - 200, MAX_HEIGHT // 2))
@@ -271,6 +288,38 @@ def select_difficulty(screen, fps):
                 elif event.key == pygame.K_3:
                     return "hard"
         fps.tick(30)
-        
+
+def update_leaderboard(score):
+    leaderboard = load_leaderboard()
+    leaderboard.append(score)
+    leaderboard = sorted(leaderboard, reverse=True)[:5]  # 상위 5개 점수만 유지
+    save_leaderboard(leaderboard)
+
+def show_leaderboard(screen, fps):
+    leaderboard = load_leaderboard()
+    font = pygame.font.Font(None, 74)
+    small_font = pygame.font.Font(None, 50)
+    title_text = font.render("Leaderboard", True, (0, 0, 0))
+
+    while True:
+        screen.fill((135, 206, 235))
+        screen.blit(title_text, (MAX_WIDTH // 2 - title_text.get_width() // 2, MAX_HEIGHT // 4))
+
+        for i, score in enumerate(leaderboard):
+            score_text = small_font.render(f"{i + 1}. {score}", True, (0, 0, 0))
+            screen.blit(score_text, (MAX_WIDTH // 2 - score_text.get_width() // 2, MAX_HEIGHT // 2 + i * 50))
+
+        pygame.display.update()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_r:
+                    return
+        fps.tick(30)
+
+
 if __name__ == '__main__':
     main()
