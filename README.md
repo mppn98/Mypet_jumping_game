@@ -107,3 +107,4 @@ MyPet 점프 게임에 오신 것을 환영합니다! 이 게임은 여러분의
 - [Pygame Documentation](https://www.pygame.org/docs/)
 - 음향 효과 출처: [freesound.org](https://freesound.org)
 - [Python Dinosaur Game](https://github.com/BlockDMask/Python_dinosaur_game/tree/master)
+- 배경,장애물 출처: [kor.pngtree.com](https://kor.pngtree.com/)
