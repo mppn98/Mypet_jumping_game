@@ -109,10 +109,17 @@ def main():
     life_x = random.randint(MAX_WIDTH, MAX_WIDTH + 500)
     life_y = random.randint(jump_top, pet_bottom)
 
+    # 잔디 이미지 설정
+    grass_image = pygame.image.load('picture/grass.png')
+    grass_image = pygame.transform.scale(grass_image, (MAX_WIDTH, 100))
+
 
 
     while True:
         screen.fill((135, 206, 235))  # 하늘색
+
+        # 잔디 이미지 그리기
+        screen.blit(grass_image, (0, MAX_HEIGHT - 100))
 
         # 이벤트 처리
         for event in pygame.event.get():
