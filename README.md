@@ -76,19 +76,18 @@ MyPet 점프 게임에 오신 것을 환영합니다! 이 게임은 여러분의
 게임이 어떻게 실행되는지 보려면 아래의 데모 영상을 확인하세요.
 
 ### 초기 화면
-게임을 실행하면, 다음과 같은 초기 화면을 볼 수 있습니다. 여기서 "Start" 버튼을 클릭하여 게임을 시작할 수 있습니다.
+게임을 실행하면, 다음과 같은 초기 화면을 볼 수 있습니다. 여기서 난이도를 선택하여 게임을 시작할 수 있습니다.
 
-![초기 화면](https://github.com/mppn98/Mypet_jumping_game/assets/164157381/d58e71e3-67a1-42a3-bf75-012bb189a1f1)
+![초기 화면](https://github.com/mppn98/Mypet_jumping_game/assets/164157381/e2945dec-c975-4e4d-8103-3f58b7c40ec6)
+
 
 ### 게임 화면
 게임이 시작되면, 펫 캐릭터가 장애물을 뛰어넘으며 진행합니다. 아래는 게임 플레이 중의 화면 예시입니다.
 
-![게임 화면](https://github.com/mppn98/Mypet_jumping_game/assets/164157381/d58e71e3-67a1-42a3-bf75-012bb189a1f1)
-
+![게임 화면](https://github.com/mppn98/Mypet_jumping_game/assets/164157381/befdaedb-eadd-466a-b758-785cc66dcaaf)
 ### 마지막 화면
 펫의 체력이 0이 되면 게임 오버 화면이 나타납니다. 여기서 점수를 확인하고, 리더보드에 점수를 저장할 수 있습니다.
-
-![마지막 화면](https://github.com/mppn98/Mypet_jumping_game/assets/164157381/d58e71e3-67a1-42a3-bf75-012bb189a1f1)
+![마지막 화면](https://github.com/mppn98/Mypet_jumping_game/assets/164157381/dff55087-ab58-49b6-8233-721adf92e144)
 
 ## 코드 설명
 
