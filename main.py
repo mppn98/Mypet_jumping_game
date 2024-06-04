@@ -136,13 +136,29 @@ def main():
         score_text = font.render(f"Score: {score}", True, (0, 0, 0))
         screen.blit(score_text, (10, 80))
 
+        # main 함수 내에서 게임 오버 처리 부분을 수정   
+
         if collision_count >= 4:
             game_over_text = font.render("Game Over", True, (255, 0, 0))
             screen.blit(game_over_text, (MAX_WIDTH // 2 - 150, MAX_HEIGHT // 2 - 50))
             pygame.display.update()
             pygame.time.wait(2000)  # 2초 대기
+            # 게임 재시작 여부를 묻는 메시지 추가
+            restart_text = font.render("Press R to Restart", True, (0, 0, 0))
+            screen.blit(restart_text, (MAX_WIDTH // 2 - 200, MAX_HEIGHT // 2))
+            pygame.display.update()
+            wait_for_restart = True
+            while wait_for_restart:
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        pygame.quit()
+                        sys.exit()
+                    elif event.type == pygame.KEYDOWN and event.key == pygame.K_r:
+                        wait_for_restart = False
+                        main()  # 재시작을 위해 main 함수를 다시 호출
             pygame.quit()
             sys.exit()
+
 
 
         # 화면 업데이트
