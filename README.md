@@ -13,14 +13,49 @@ MyPet 점프 게임에 오신 것을 환영합니다! 이 게임은 여러분의
 ### 필요 사항
 - Python 3.x
 - Pygame 라이브러리
+# 지원 Operating Systems 및 실행 방법
 
-### 설치 방법
-1. 저장소를 클론합니다:
+## 지원 Operating Systems
+|OS| 지원 여부 |
+|-----|--------|
+|windows | :o:  |
+| Linux  | :o: |
+
+## 설치 방법
+### Windows
+
+1. python3.12를 설치합니다.
+
+2. 저장소를 클론합니다:
     ```bash
     git clone https://github.com/mppn98/Mypet_jumping_game.git
     cd Mypet_jumping_game
     ```
-2. Pygame 라이브러리를 설치합니다:
+3. Pygame 라이브러리를 설치합니다:
+    ```bash
+    pip3 install pygame or pip install pygame
+    ```
+    
+### 게임 실행
+1. 프로젝트 디렉토리로 이동합니다.
+    ```bash
+    cd Mypet_jumping_game
+    ```
+2. 메인 게임 스크립트를 실행합니다:
+    ```bash
+    python3 main.py  or  python main.py
+    ```
+
+### Linux
+
+1. python3.12를 설치합니다.
+
+2. 저장소를 클론합니다:
+    ```bash
+    git clone https://github.com/mppn98/Mypet_jumping_game.git
+    cd Mypet_jumping_game
+    ```
+3. Pygame 라이브러리를 설치합니다:
     ```bash
     pip install pygame
     ```
@@ -34,7 +69,7 @@ MyPet 점프 게임에 오신 것을 환영합니다! 이 게임은 여러분의
     ```bash
     python3 main.py
     ```
-
+    
 ## Docker를 사용한 실행 방법
 
 ### 필요 사항
