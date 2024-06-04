@@ -13,11 +13,23 @@ pygame.display.set_caption('Jumping Pet Game')
 MAX_WIDTH = 1280
 MAX_HEIGHT = 720
 
+# 난이도 설정
+difficulty_settings = {
+    "easy": {"obstacle_speed": 10, "item_frequency": 3000},
+    "medium": {"obstacle_speed": 15, "item_frequency": 2000},
+    "hard": {"obstacle_speed": 20, "item_frequency": 1000},
+}
+
 
 def main():
     # 창 설정, fps 설정
     screen = pygame.display.set_mode((MAX_WIDTH, MAX_HEIGHT))
     fps = pygame.time.Clock()
+
+    # 난이도 선택 화면 표시
+    difficulty = select_difficulty(screen, fps)
+    settings = difficulty_settings[difficulty]
+
 
     # 효과음 초기화
     pygame.mixer.init()
@@ -231,6 +243,34 @@ def main():
         pygame.display.update()
         fps.tick(33) # fps 설정
 
+def select_difficulty(screen, fps):
+    font = pygame.font.Font(None, 74)
+    small_font = pygame.font.Font(None, 50)
+    title_text = font.render("Select Difficulty", True, (0, 0, 0))
+    easy_text = small_font.render("1. Easy", True, (0, 0, 0))
+    medium_text = small_font.render("2. Medium", True, (0, 0, 0))
+    hard_text = small_font.render("3. Hard", True, (0, 0, 0))
 
+    while True:
+        screen.fill((135, 206, 235))
+        screen.blit(title_text, (MAX_WIDTH // 2 - title_text.get_width() // 2, MAX_HEIGHT // 4))
+        screen.blit(easy_text, (MAX_WIDTH // 2 - easy_text.get_width() // 2, MAX_HEIGHT // 2 - 50))
+        screen.blit(medium_text, (MAX_WIDTH // 2 - medium_text.get_width() // 2, MAX_HEIGHT // 2))
+        screen.blit(hard_text, (MAX_WIDTH // 2 - hard_text.get_width() // 2, MAX_HEIGHT // 2 + 50))
+        pygame.display.update()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_1:
+                    return "easy"
+                elif event.key == pygame.K_2:
+                    return "medium"
+                elif event.key == pygame.K_3:
+                    return "hard"
+        fps.tick(30)
+        
 if __name__ == '__main__':
     main()
