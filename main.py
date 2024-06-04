@@ -71,6 +71,9 @@ def main():
     # 레벨을 나타내는 변수 추가
     level=1
 
+    #체력변수 추가
+    health = 3
+
     # 점수판 글꼴 설정
     font = pygame.font.Font(None, 74)
 
@@ -143,14 +146,15 @@ def main():
 
         
         if pet_rect.colliderect(obstacle_rect):
+            health -= 1
             collision_count += 1
             obstacle_x = MAX_WIDTH  # 충돌 시 장애물을 화면 밖으로 재배치
             # 충돌 효과음 재생
             collision_sound.play()
 
-        # 충돌횟수 화면에 표시
-        collision_text = font.render(f"collisions: {collision_count}", True, (0, 0, 0))
-        screen.blit(collision_text, (10, 10))
+        # 체력 화면에 표시
+        health_text = font.render(f"Life: {health}", True, (0, 0, 0))
+        screen.blit(health_text, (10, 10))
 
         # 점수를 화면에 표시
         score_text = font.render(f"Score: {score}", True, (0, 0, 0))
@@ -160,9 +164,8 @@ def main():
         level_text = font.render(f"Level: {level}", True, (0, 0, 0))
         screen.blit(level_text, (10, 150))
 
-        # main 함수 내에서 게임 오버 처리 부분을 수정   
-
-        if collision_count >= 4:
+        # 체력이 0이 되면 게임 오버 처리
+        if health <= 0:
             game_over_text = font.render("Game Over", True, (255, 0, 0))
             screen.blit(game_over_text, (MAX_WIDTH // 2 - 150, MAX_HEIGHT // 2 - 50))
             pygame.display.update()
@@ -182,7 +185,6 @@ def main():
                         main()  # 재시작을 위해 main 함수를 다시 호출
             pygame.quit()
             sys.exit()
-
 
 
         # 화면 업데이트
