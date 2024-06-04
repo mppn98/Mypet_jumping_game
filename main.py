@@ -43,11 +43,21 @@ def main():
     animation_counter = 0
 
     #장애물 설정
-    obstacle = [pygame.transform.scale(pygame.image.load('picture/tree.png'), (100, 100))]  # 장애물 이미지를 리스트로 정의
-    current_obstacle = random.choice(obstacle)
+    obstacle_images = [
+        pygame.transform.scale(pygame.image.load('picture/tree.png'), (100, 100)),
+        pygame.transform.scale(pygame.image.load('picture/rock.png'), (80, 80)),
+        pygame.transform.scale(pygame.image.load('picture/bird.png'), (120, 60))
+]
+    
+    # 장애물 초기화 부분 수정   
+    current_obstacle = random.choice(obstacle_images)
     obstacle_height = current_obstacle.get_size()[1]
+    if current_obstacle == obstacle_images[2]:  # bird
+        obstacle_y = random.randint(100, 300)  # 하늘에 위치하도록
+    else:
+        obstacle_y = MAX_HEIGHT - obstacle_height
     obstacle_x = MAX_WIDTH
-    obstacle_y = MAX_HEIGHT - obstacle_height
+
 
     # 장애물 속도 변수 추가
     obstacle_speed = 17.0
@@ -106,9 +116,12 @@ def main():
                     obstacle_speed += 3
                     level += 1  # 레벨 증가
             obstacle_x = MAX_WIDTH
-            current_obstacle = random.choice(obstacle)
+            current_obstacle = random.choice(obstacle_images)
             obstacle_height = current_obstacle.get_size()[1]
-            obstacle_y = MAX_HEIGHT - obstacle_height
+            if current_obstacle == obstacle_images[2]:  # bird
+                obstacle_y = random.randint(100, 300)  # 하늘에 위치하도록
+            else:
+                obstacle_y = MAX_HEIGHT - obstacle_height
 
 
         # 장애물 그리기
