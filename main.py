@@ -21,7 +21,7 @@ def main():
 
     # 효과음 초기화
     pygame.mixer.init()
-    jump_sound = pygame.mixer.Sound('Mypet_jumping_game/sounds/jump.wav')
+    jump_sound = pygame.mixer.Sound('sounds/jump.wav')
     collision_sound = pygame.mixer.Sound('sounds/collision.wav')
 
     # pet 설정
