@@ -58,6 +58,9 @@ def main():
     # 점수
     score = 0
 
+    # 레벨을 나타내는 변수 추가
+    level=1
+
     # 점수판 글꼴 설정
     font = pygame.font.Font(None, 74)
 
@@ -90,19 +93,23 @@ def main():
         if not is_bottom and pet_y >= pet_bottom:
             is_bottom = True
             pet_y = pet_bottom
+        
+        
 
         # 장애물 이동
         obstacle_x -= obstacle_speed
-        if obstacle_x <= -100:  # 장애물이 화면을 완전히 지나쳤을 때
-            if not pet_rect.colliderect(obstacle_rect):  # 펫이 장애물과 충돌하지 않았을 때
-                score += 1  # 점수 증가
-                # 일정 점수마다 속도 증가
+        # 점수 처리 부분 수정
+        if obstacle_x <= -100:
+            if not pet_rect.colliderect(obstacle_rect):
+                score += 1
                 if score % 5 == 0:
                     obstacle_speed += 3
+                    level += 1  # 레벨 증가
             obstacle_x = MAX_WIDTH
             current_obstacle = random.choice(obstacle)
             obstacle_height = current_obstacle.get_size()[1]
             obstacle_y = MAX_HEIGHT - obstacle_height
+
 
         # 장애물 그리기
         screen.blit(current_obstacle, (obstacle_x, obstacle_y))
@@ -135,6 +142,10 @@ def main():
         # 점수를 화면에 표시
         score_text = font.render(f"Score: {score}", True, (0, 0, 0))
         screen.blit(score_text, (10, 80))
+
+        # 레벨을 화면에 표시
+        level_text = font.render(f"Level: {level}", True, (0, 0, 0))
+        screen.blit(level_text, (10, 150))
 
         # main 함수 내에서 게임 오버 처리 부분을 수정   
 
