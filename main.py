@@ -167,7 +167,7 @@ def main():
 
         # 레벨을 화면에 표시
         level_text = font.render(f"Level: {level}", True, (0, 0, 0))
-        screen.blit(level_text, (10, 150))
+        screen.blit(level_text, (MAX_WIDTH - level_text.get_width() - 10, 10))
 
         # 체력이 0이 되면 게임 오버 처리
         if health <= 0:
