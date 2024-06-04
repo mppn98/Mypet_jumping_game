@@ -3,6 +3,8 @@
 import pygame
 import sys
 import random
+import os
+
 
 # step1 : 창 제목 설정, 화면 설정
 
@@ -20,10 +22,10 @@ def main():
     # 효과음 초기화
     pygame.mixer.init()
     jump_sound = pygame.mixer.Sound('Mypet_jumping_game/sounds/jump.wav')
-    collision_sound = pygame.mixer.Sound('Mypet_jumping_game/sounds/collision.wav')
+    collision_sound = pygame.mixer.Sound('sounds/collision.wav')
 
     # pet 설정
-    pet_images = [pygame.image.load(f'Mypet_jumping_game/picture/pet{i}.png') for i in range(1, 3)]
+    pet_images = [pygame.image.load(f'picture/pet{i}.png') for i in range(1, 3)]
     pet_images = [pygame.transform.scale(img, (img.get_width() // 3, img.get_height() // 3)) for img in pet_images]
     pet_height = pet_images[0].get_size()[1]
     pet_bottom = MAX_HEIGHT - pet_height
@@ -39,7 +41,7 @@ def main():
     animation_counter = 0
 
     #장애물 설정
-    obstacle = [pygame.transform.scale(pygame.image.load('Mypet_jumping_game/picture/tree.png'), (100, 100))]  # 장애물 이미지를 리스트로 정의
+    obstacle = [pygame.transform.scale(pygame.image.load('picture/tree.png'), (100, 100))]  # 장애물 이미지를 리스트로 정의
     current_obstacle = random.choice(obstacle)
     obstacle_height = current_obstacle.get_size()[1]
     obstacle_x = MAX_WIDTH

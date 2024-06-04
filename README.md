@@ -32,7 +32,7 @@ MyPet 점프 게임에 오신 것을 환영합니다! 이 게임은 여러분의
     ```
 2. 메인 게임 스크립트를 실행합니다:
     ```bash
-    python main.py
+    python3 main.py
     ```
 
 ## Docker를 사용한 실행 방법
