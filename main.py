@@ -77,6 +77,11 @@ def main():
     # 점수판 글꼴 설정
     font = pygame.font.Font(None, 74)
 
+    # 아이템 이미지와 초기 위치 설정
+    item_image = pygame.transform.scale(pygame.image.load('picture/item.png'), (50, 50))
+    item_x = random.randint(MAX_WIDTH, MAX_WIDTH + 500)
+    item_y = random.randint(jump_top, pet_bottom)
+
 
     while True:
         screen.fill((135, 206, 235))  # 하늘색
@@ -186,6 +191,24 @@ def main():
             pygame.quit()
             sys.exit()
 
+        # 아이템 그리기
+        screen.blit(item_image, (item_x, item_y))
+
+        # 아이템 이동
+        item_x -= obstacle_speed
+
+        # 아이템이 화면을 벗어나면 새 위치로 재배치
+        if item_x < -50:
+            item_x = random.randint(MAX_WIDTH, MAX_WIDTH + 500)
+            item_y = random.randint(jump_top, pet_bottom)
+
+        # 아이템 충돌 처리
+        item_rect = item_image.get_rect(topleft=(item_x, item_y))
+        if pet_rect.colliderect(item_rect):
+            score += 1  # 아이템 획득 시 점수 증가
+            health = min(health + 1, 3)  # 아이템 획득 시 체력 증가, 최대 체력은 3
+            item_x = random.randint(MAX_WIDTH, MAX_WIDTH + 500)
+            item_y = random.randint(jump_top, pet_bottom)
 
         # 화면 업데이트
         pygame.display.update()
