@@ -78,9 +78,13 @@ def main():
     font = pygame.font.Font(None, 74)
 
     # 아이템 이미지와 초기 위치 설정
-    item_image = pygame.transform.scale(pygame.image.load('picture/item.png'), (50, 50))
-    item_x = random.randint(MAX_WIDTH, MAX_WIDTH + 500)
-    item_y = random.randint(jump_top, pet_bottom)
+    food_image = pygame.transform.scale(pygame.image.load('picture/food.png'), (50, 50))
+    life_image = pygame.transform.scale(pygame.image.load('picture/life.png'), (50, 50))
+    food_x = random.randint(MAX_WIDTH, MAX_WIDTH + 500)
+    food_y = random.randint(jump_top, pet_bottom)
+    life_x = random.randint(MAX_WIDTH, MAX_WIDTH + 500)
+    life_y = random.randint(jump_top, pet_bottom)
+
 
 
     while True:
@@ -192,23 +196,36 @@ def main():
             sys.exit()
 
         # 아이템 그리기
-        screen.blit(item_image, (item_x, item_y))
+        screen.blit(food_image, (food_x, food_y))
+        screen.blit(life_image, (life_x, life_y))
 
         # 아이템 이동
-        item_x -= obstacle_speed
+        food_x -= obstacle_speed
+        life_x -= obstacle_speed
 
         # 아이템이 화면을 벗어나면 새 위치로 재배치
-        if item_x < -50:
-            item_x = random.randint(MAX_WIDTH, MAX_WIDTH + 500)
-            item_y = random.randint(jump_top, pet_bottom)
+        if food_x < -50:
+            food_x = random.randint(MAX_WIDTH, MAX_WIDTH + 500)
+            food_y = random.randint(jump_top, pet_bottom)
+
+        if life_x < -50:
+            life_x = random.randint(MAX_WIDTH, MAX_WIDTH + 500)
+            life_y = random.randint(jump_top, pet_bottom)
 
         # 아이템 충돌 처리
-        item_rect = item_image.get_rect(topleft=(item_x, item_y))
-        if pet_rect.colliderect(item_rect):
-            score += 1  # 아이템 획득 시 점수 증가
-            health = min(health + 1, 3)  # 아이템 획득 시 체력 증가, 최대 체력은 3
-            item_x = random.randint(MAX_WIDTH, MAX_WIDTH + 500)
-            item_y = random.randint(jump_top, pet_bottom)
+        food_rect = food_image.get_rect(topleft=(food_x, food_y))
+        life_rect = life_image.get_rect(topleft=(life_x, life_y))
+        
+
+        if pet_rect.colliderect(food_rect):
+            score += 1  # food 획득 시 점수 증가
+            food_x = random.randint(MAX_WIDTH, MAX_WIDTH + 500)
+            food_y = random.randint(jump_top, pet_bottom)
+        
+        if pet_rect.colliderect(life_rect):
+            health = min(health + 1, 3)  # life 획득 시 체력 증가, 최대 체력은 3
+            life_x = random.randint(MAX_WIDTH, MAX_WIDTH + 500)
+            life_y = random.randint(jump_top, pet_bottom)
 
         # 화면 업데이트
         pygame.display.update()
